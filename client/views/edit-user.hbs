@@ -1,0 +1,180 @@
+<div class="container bg-light mt-5 pt-3 pb-3">
+    <div class="row">
+        <div class="col-12">
+            <h5>Edit user</h5>
+        </div>
+        <div class="col-12 offset-md-1 offset-lg-2 col-md-10 col-lg-8">
+            <form id="formCreateUser" class="container-fluid mt-5" action="/users/edit/{{user.id}}" method="post">
+                <caption>All fields are mandatory.</caption>
+                <div class="form-group row mt-5">
+                    <label class="col-12 col-lg-3 col-form-label" for="name">Full name</label>
+                    <div class="col-12 col-lg-9">
+                        <input id="inputName" class="form-control" type="text" name="name" placeholder="John Doe"
+                            value="{{user.first_name}} {{user.last_name}}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-12 col-lg-3 col-form-label" for="department">Department</label>
+                    <div class="col-12 col-lg-9">
+                        <input id="inputDepartment" class="form-control" type="text" name="department"
+                            placeholder="Department" value={{user.department}}>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-12 col-lg-3 col-form-label" for="position">Position</label>
+                    <div class="col-12 col-lg-9">
+                        <input id="inputPosition" class="form-control" type="text" name="position"
+                            placeholder="Position" value={{user.position}}>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-12 col-lg-3 col-form-label" for="salary">Salary</label>
+                    <div class="col-12 col-lg-9">
+                        <input id="inputSalary" class="form-control" type="number" name="salary" placeholder="0" min="0"
+                            value={{user.salary}}>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-12 col-lg-3 col-form-label" for="email">Email</label>
+                    <div class="col-12 col-lg-9">
+                        <input id="inputEmail" class="form-control" type="email" name="email" placeholder="Email"
+                            value={{user.email}}>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-12 col-lg-3 col-form-label" for="phone">Phone</label>
+                    <div class="col-12 col-lg-9">
+                        <input id="inputPhone" class="form-control" type="tel" name="phone" placeholder="0123456789"
+                            value={{user.phone}}>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-12 col-lg-3 col-form-label" for="City">City</label>
+                    <div class="col-12 col-lg-9">
+                        <input id="inputCity" class="form-control" type="text" name="city" placeholder="City"
+                            value={{user.city}}>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-12 col-lg-3 col-form-label" for="State">State</label>
+                    <div class="col-12 col-lg-9">
+                        <input id="inputState" class="form-control" type="text" name="state" placeholder="State"
+                            value={{user.state}}>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-12 col-lg-3 col-form-label" for="Street">Street</label>
+                    <div class="col-12 col-lg-9">
+                        <input id="inputStreet" class="form-control" type="text" name="street" placeholder="Street"
+                            value={{user.street}}>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-12 col-md-6 col-lg-3 mt-3">
+                        <input id="btnCreateUser" class="form-control btn-outline-primary" type="button" value="Submit">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $("#btnCreateUser").click(function (e) {
+        e.preventDefault()
+        if (validateName()
+            && validateSalary()
+            && validateCity()
+            && validateStreet()
+            && validateState()
+            && validateDepartment()
+            && validatePosition()
+            && validatePhone()
+            && validateEmail()) {
+            $("#formCreateUser").submit()
+        }
+    })
+    function validateName() {
+        let validator = /^[ а-яА-Яa-zA-Z\-\’]+$/;
+        let name = document.getElementById('inputName').value;
+        if (!validator.test(name)) {
+            document.getElementById('inputName').style.background = "#FA8072";
+            return false;
+        } else {
+            return true;
+        }
+    }
+    function validateSalary() {
+        let salary = document.getElementById('inputSalary').value;
+        if (salary > 0) {
+            return true
+        } else {
+            document.getElementById('inputSalary').style.background = "#FA8072";
+            return false
+        }
+    }
+    function validateCity() {
+        let city = document.getElementById('inputCity').value;
+        if (city) {
+            return true
+        } else {
+            document.getElementById('inputCity').style.background = "#FA8072";
+            return false
+        }
+    }
+    function validateStreet() {
+        let street = document.getElementById('inputStreet').value;
+        if (street) {
+            return true
+        } else {
+            document.getElementById('inputStreet').style.background = "#FA8072";
+            return false
+        }
+    }
+    function validateState() {
+        let state = document.getElementById('inputState').value;
+        if (state) {
+            return true
+        } else {
+            document.getElementById('inputState').style.background = "#FA8072";
+            return false
+        }
+    }
+    function validateDepartment() {
+        let department = document.getElementById('inputDepartment').value
+        if (department) {
+            return true
+        } else {
+            document.getElementById('inputDepartment').style.background = "#FA8072";
+            return false
+        }
+    }
+    function validatePosition() {
+        let position = document.getElementById('inputPosition').value
+        if (position) {
+            return true
+        } else {
+            document.getElementById('inputPosition').style.background = "#FA8072";
+            return false
+        }
+    }
+    function validatePhone() {
+        let phone = document.getElementById('inputPhone').value
+        let validator = /^[0-9]{1,10}$/;
+        if (phone && validator.test(phone)) {
+            return true
+        } else {
+            document.getElementById('inputPhone').style.background = "#FA8072";
+            return false
+        }
+    }
+    function validateEmail() {
+        let validator = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        let email = document.getElementById('inputEmail').value
+        if (validator.test(email)) {
+            return true
+        } else {
+            document.getElementById('inputEmail').style.background = "#FA8072";
+            return false
+        }
+    }
+</script>

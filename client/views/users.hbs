@@ -1,0 +1,57 @@
+<div class="container bg-light mt-5 pt-3 pb-3">
+	<div class="row mt-5" id="userList">
+		<div class="col-12">
+			<table class="table">
+				<tr>
+					<th>#</th>
+					<td>Name</td>
+					<td>Department <br> Position</td>
+					<td>Phone<br>Email</td>
+					<td>Salary</td>
+					<td>City<br>State</td>
+					<td>Street</td>
+					<td></td>
+				</tr>
+				{{#each users}}
+				<tr>
+					<th>{{@index}}</th>
+					<td>{{this.first_name}} {{this.last_name}}</td>
+					<td>{{this.phone}}<br>{{this.email}}</td>
+					<td>{{this.department}}<br>{{this.position}}</td>
+					<td>{{this.salary}}</td>
+					<td>{{this.city}}<br>{{this.state}}</td>
+					<td>{{this.street}}</td>
+					<td>
+						<a class="btn btn-outline-warning" href="/users/edit/{{this.id}}">Edit</a>
+						<input class="btn btn-outline-danger button-delete" value="Delete" type="button"
+							id="{{this.id}}">
+					</td>
+				</tr>
+				{{else}}
+				<tr>
+					<th>No users registered.</th>
+				</tr>
+				{{/each}}
+			</table>
+		</div>
+	</div>
+</div>
+
+<script>
+	// delete users entry
+	$('.button-delete').click(function () {
+		
+		if (confirm("Delete entry?")) {
+		
+			let url = `/users/delete/${this.id}`
+		
+			$.post(url,
+				function () {
+					window.location.reload()
+				})
+				.fail(function () {
+					alert('Failed deleting entry!')
+				})
+		}
+	})
+</script>
